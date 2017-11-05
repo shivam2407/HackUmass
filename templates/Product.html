@@ -1,0 +1,125 @@
+<html>
+<head>
+	<title>Foodzem</title>
+	<meta charset = "UTF8">
+	<meta name = "viewport" content = "width=device-width, initial-scale=1">
+	<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.mis.css">
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+	
+	.navbar {
+		margin-bottom : 0;
+		border-radius : 0;
+		background-color : #5E4485;
+		color : #FFF;
+		padding : 1% 0;
+		font-size : 1.2em;
+		border : 0;
+	 }
+	 .navbar-brand {
+	 	float : left;
+	 	min-height : 55px;
+	 	padding : 0 15px 5px; 
+	 }
+	 .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover {
+	 	color : #FFF;
+	 	background-color : #5E4485;
+	 } 
+	 .navbar-inverse .navbar-nav li a{
+	 	color : #D5D5D5;
+	 }
+	 .carousel-caption {
+	 	top : 50%;
+	 	transform : translateY(-50%);
+	 	text-transform: uppercase;
+	 }
+	 .btn {
+	 	font-size : 18px;
+	 	color : #FFF;
+	 	padding: 12px;
+	 	background : #5E4485;
+	 	border: 2px solid #FFF;
+	 }
+
+	 @meida( max-width: 600px){
+	 	.carousel-caption{
+	 		display: none;
+	 	}
+	 }
+	 footer { 
+	 	width : 100%;
+	 	background-color : #5E4485;
+	 	padding: 3%;
+	 	color: #FFF; 
+	 }
+
+	</style>
+</head>
+<body>
+	<nav class = "navbar navbar-inverse">
+		<div class = "container-fluid">
+			<div class = "navbar-header">
+				<button type="button" class = "navbar-toggle" data-toggle = "collapse" data-target = "#MyNavbar">
+					<span class = "icon-bar"></span>
+					<span class = "icon-bar"></span>
+					<span class = "icon-bar"></span>
+				</button>
+				<a class = "navbar-brand" href = "#"><img src = "{{url_for('static', filename='logo.png')}}"></a>
+			</div>
+			<div class = "collapse navbar-collapse" id = "myNavbar">
+				<ul class = "nav navbar-nav navbar-right">
+					<li class = "active"><a href = "#">Home</a></li>
+					<li><a href = "#">Upload</a></li>
+					<li><a href = "#">Food Product</a></li>
+					<li><a href = "#">Workout Regime</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class = "container" style="flex:1">
+		<div class = "row">
+			<h2>Choose the best option which matches your food item: </h2><br />
+			<div class = "col-xs-12">
+				<form style = "margin-left:30%" method = "POST" action = "../properties">	
+					<div class = "btn-group" data-toggle="buttons">			
+						<table class = "table table-bordered">
+							<tr class = "active">
+								<th>Select</th>
+								<th>Product Name</th>
+							</tr>
+							{% for key, value in result.items() %}
+							<tr>
+								<td>
+									
+									<label class = "btn btn-primary active">
+										<input type = "radio" name = "food_id" autocomplete = "off" value = "{{ key }}" checked = "true" >
+									</label>
+								</td>
+					 			<td>{{ value }}</td>
+					 		</tr>
+					 		{% endfor %}
+						</table>
+					</div>
+
+					<br />
+					<button type = "submit" class = "btn btn-default"> Calculate</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	
+</body>
+<!--<form action='../uploader' method='POST' enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Example file input</label>
+    <input type="file" class="form-control-file" name="Upload" id="exampleFormControlFile1">
+  </div>
+  <div class="form-group">
+      <input type="submit" class="btn btn-primary" name="Submit">
+  </div>
+</form>-->
+</html>

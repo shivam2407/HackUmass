@@ -74,24 +74,24 @@ def calorie():
 
 @app.route('/exercise',methods=["POST"])
 def get_exercise():
-    value = '';
+    value = request.form['calorie'];
     url = 'https://wger.de/api/v2/'
     page_number = random.randint(1,14)
     url = "https://wger.de/api/v2/exercise?language=2&page="+str(page_number)
     header = {'Accept': 'application/json','Authorization':''}
     r = requests.post(url=url, data={}, headers=header)
     r = json.loads(r.content.decode('UTF-8'))
-    return str(r)
-    url_image = "https://wger.de/api/v2/exerciseimage"
-    r_image = requests.post(url=url_image, data={}, headers=header)
-    bmr = ((10*85)+(6.25*173)+(5*21)+5)/2
+    #return str(r)
+    bmr = ((10*85)+(6.25*173)+(5*21)+5)/3
+    value=float(value) - bmr
     exer={}
     calorie={}
     r = r['results']
     for exercise in r:
          exer[exercise['name']] = exercise['description']
-         calorie[exercise['name']] = random.randint(30,100)
-    return render_template("excersie.html", result = exer)
+         calorie[exercise['name']] = (float(value) // random.randint(30,100))*15
+    result=[exer,calorie]
+    return render_template("excersie.html", result = result)
     return str(exer)
 
 
